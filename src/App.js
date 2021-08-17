@@ -1,23 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Reset } from 'styled-reset';
+import { ThemeProvider } from 'styled-components';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Home, Cart, Details, Checkout } from './pages';
+import theme from './theme';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={ logo } className="App-logo" alt="logo" />
-        <p>Edit src/App.js and save to reload.</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={ theme }>
+      <Reset />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/checkout" component={ Checkout } />
+          <Route exact path="/" component={ Home } />
+          <Route exact path="/cart" component={ Cart } />
+          <Route exact path="/:id" render={ (props) => <Details { ...props } /> } />
+        </Switch>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
